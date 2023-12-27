@@ -35,7 +35,6 @@ const gqlResponse: AllProductResponse = await client.request(
       allProduct(sort: { publishedAt: DESC }) {
         edges {
           node {
-            backround
             category
             id
             price
