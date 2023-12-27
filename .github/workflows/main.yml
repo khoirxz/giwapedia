@@ -30,7 +30,7 @@ jobs:
           script: |
             sudo su
             whoami
-            cd /home/giwaroot/giwapedia/frontend/
+            cd /home/giwaroot/giwapedia/
             git pull
             git status
             npm i
