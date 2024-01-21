@@ -1,56 +1,20 @@
-import { gql, GraphQLClient } from "graphql-request";
+import { useContext, useEffect } from "react";
 
 import PublicLayout from "../../layout/public";
 
-const client = new GraphQLClient(
-  `https://cloud.caisy.io/api/v3/e/${import.meta.env.VITE_PROJECT_ID}/graphql`,
-  {
-    headers: {
-      "x-caisy-apikey": import.meta.env.VITE_API_KEY,
-    },
-  }
-);
-
-interface Product {
-  backround: string;
-  category: string;
-  id: string;
-  price: number;
-  title: string;
-}
-
-interface ProductEdge {
-  node: Product;
-}
-
-interface AllProductResponse {
-  allProduct: {
-    edges: ProductEdge[];
-  };
-}
-
-const gqlResponse: AllProductResponse = await client.request(
-  gql`
-    {
-      allProduct(sort: { publishedAt: DESC }) {
-        edges {
-          node {
-            category
-            id
-            price
-            title
-          }
-        }
-      }
-    }
-  `
-);
-
-const item = gqlResponse?.allProduct?.edges;
-
-// console.log(item);
+import { DataContext } from "../../Context";
+import { ContextContainerProps } from "../../utils";
 
 const Product: React.FC = () => {
+  const { products, categories, getAllProducts, getAllCategory } =
+    useContext<ContextContainerProps>(DataContext);
+
+  useEffect(() => {
+    getAllProducts();
+    getAllCategory();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <PublicLayout>
       <section className="pt-40 min-h-screen">
@@ -58,26 +22,50 @@ const Product: React.FC = () => {
           Produk unggulan
         </h1>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-          {item?.map((item) => (
-            <div key={item.node.id}>
-              <div className={`bg-sky-400/30 p-5 rounded-lg flex flex-col`}>
-                <div>
-                  <p className="bg-sky-500 inline-block p-1 my-2 text-white rounded-lg font-body text-sm">
-                    {item.node.category}
-                  </p>
-                </div>
-
-                <h1 className="font-heading font-bold mt-1 text-lg">
-                  {item.node.title}
-                </h1>
-                <p className="font-body text-sm mb-2">Rp. {item.node.price}</p>
-                <button className="font-heading font-bold py-1 bg-blue-700 text-white rounded-xl w-full">
-                  Beli
-                </button>
+        <div className="relative grid custom-cols">
+          <div className="">
+            <div className="shadow-md p-4 rounded-xl">
+              <h1 className="font-body font-bold mt-2 mb-4">Category</h1>
+              <div className="flex flex-row gap-3 flex-wrap">
+                {categories.allCategory.edges.map((item) => (
+                  <button
+                    key={item.node.id}
+                    className="bg-blue-700 text-white px-3 py-1 rounded-lg border-2 hover:border-blue-200 font-body"
+                  >
+                    {item.node.title}
+                  </button>
+                ))}
               </div>
             </div>
-          ))}
+          </div>
+          <div className="">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+              {products.allProduct.edges.map((item) => (
+                <div
+                  key={item.node.id}
+                  className="h-full w-fh-full 2xl:w-[200px] 2xl:h-[200px] bg-sky-400/30 p-5 rounded-lg"
+                >
+                  <div className={`flex flex-col`}>
+                    <div>
+                      <p className="bg-sky-500 inline-block p-1 my-2 text-white rounded-lg font-body text-sm">
+                        {item.node.categories.title}
+                      </p>
+                    </div>
+
+                    <h1 className="font-heading font-bold mt-1 text-lg">
+                      {item.node.title}
+                    </h1>
+                    <p className="font-body text-sm mb-2">
+                      Rp. {item.node.price}
+                    </p>
+                    <button className="font-heading font-bold py-1 bg-blue-700 text-white rounded-xl w-full">
+                      Beli
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
     </PublicLayout>

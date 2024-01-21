@@ -40,8 +40,6 @@ const gqlResponse: AllMetaResponse = await client.request(
 
 const meta = gqlResponse.MetaPage;
 
-console.log(meta);
-
 const PublicLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
   return (
     <>

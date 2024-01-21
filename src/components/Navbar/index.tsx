@@ -64,18 +64,24 @@ const Navbar: React.FC<{ title: string }> = ({ title }) => {
               leaveTo="transform -translate-y-10 opacity-0"
             >
               <div className="backdrop-blur-2xl mt-2 font-heading font-bold flex flex-col gap-3">
-                <a className="cursor-pointer flex items-center gap-1">
+                <Link to="/" className="cursor-pointer flex items-center gap-1">
                   <span>Home</span>
                   <ChevronDownIcon className="h-4 w-4" />
-                </a>
-                <a className="cursor-pointer flex items-center gap-1">
+                </Link>
+                <Link
+                  to="/product"
+                  className="cursor-pointer flex items-center gap-1"
+                >
                   <span>Produk</span>
                   <ChevronDownIcon className="h-4 w-4" />
-                </a>
-                <a className="cursor-pointer flex items-center gap-1">
+                </Link>
+                <Link
+                  to="/about"
+                  className="cursor-pointer flex items-center gap-1"
+                >
                   <span>About</span>
                   <ChevronDownIcon className="h-4 w-4" />
-                </a>
+                </Link>
               </div>
             </Transition.Child>
           </div>

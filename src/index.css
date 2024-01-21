@@ -2,3 +2,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  .custom-cols {
+    grid-template-columns: 400px 1fr;
+    gap: theme("gap.4");
+  }
+
+  @media screen and (max-width: 1320px) {
+    .custom-cols {
+      grid-template-columns: theme("gridTemplateColumns.1");
+    }
+  }
+}
