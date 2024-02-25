@@ -50,7 +50,7 @@ const socialIcon: SocialIcon = [
 
 const Home: React.FC = () => {
   return (
-    <PublicLayout>
+    <PublicLayout Navs={true}>
       <Hero />
 
       <section className="my-8">

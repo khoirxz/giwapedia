@@ -46,6 +46,9 @@ const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
                 id
                 price
                 title
+                description {
+                  json
+                }
                 categories {
                   title
                 }

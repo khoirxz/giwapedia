@@ -40,11 +40,17 @@ const gqlResponse: AllMetaResponse = await client.request(
 
 const meta = gqlResponse.MetaPage;
 
-const PublicLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
+interface PublicLayoutProps {
+  children: ReactNode;
+  Navs: boolean;
+}
+
+const PublicLayout: React.FC<PublicLayoutProps> = ({ children, Navs }) => {
   return (
     <>
       <div className={`max-w-7xl relative mx-auto z-0`}>
-        <Navbar title={meta?.title} />
+        <Navbar title={meta?.title} showItem={Navs} />
+
         <div className="px-3">{children}</div>
       </div>
       <Footer />

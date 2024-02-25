@@ -6,7 +6,7 @@ import whatsapp from "@assets/images/icon/whatsapp.svg";
 
 const About: React.FC = () => {
   return (
-    <PublicLayout>
+    <PublicLayout Navs={true}>
       <section className="pt-40 min-h-screen">
         <h1 className="font-heading text-3xl font-bold my-8">About</h1>
 
