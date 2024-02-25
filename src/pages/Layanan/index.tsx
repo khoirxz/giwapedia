@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { RichTextRenderer } from "@caisy/rich-text-react-renderer";
 
@@ -10,14 +10,20 @@ import { DataContext } from "../../Context";
 import { ContextContainerProps } from "../../utils";
 
 const Layanan: React.FC = () => {
-  const { products, getAllProducts, getAllCategory } =
+  const [keyword, setKeyword] = useState<string>("");
+
+  const { products, getAllProducts, getAllCategory, serachProduct } =
     useContext<ContextContainerProps>(DataContext);
 
   useEffect(() => {
     getAllProducts();
     getAllCategory();
+
+    if (keyword) {
+      serachProduct(keyword);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [keyword]);
 
   return (
     <PublicLayout Navs={false}>
@@ -28,6 +34,8 @@ const Layanan: React.FC = () => {
             type="text"
             placeholder="Cari layanan anda"
             className=" text-xl w-full outline-none"
+            value={keyword}
+            onChange={(e) => setKeyword(e.target.value)}
           />
         </form>
 
@@ -36,7 +44,7 @@ const Layanan: React.FC = () => {
             {products.allProduct.edges.map((item) => (
               <div key={item.node.id} className="p-5 rounded-lg shadow border">
                 <div className={`flex flex-col`}>
-                  <h1 className="font-heading font-bold mt-1 text-lg">
+                  <h1 className="font-heading font-bold mt-1 text-lg capitalize">
                     {item.node.title}
                   </h1>
 

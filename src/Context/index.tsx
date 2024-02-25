@@ -32,6 +32,7 @@ const DataContext = createContext<ContextContainerProps>({
     },
   },
   getMeta: async () => {},
+  serachProduct: async () => {},
 });
 
 const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
@@ -117,6 +118,32 @@ const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     setCategories(gqlResponse);
   };
 
+  const serachProduct = async (product: string) => {
+    const gqlResponse: AllProduct = await client.request(
+      gql`
+        {
+          allProduct(where: { title: { contains: "${product.toLowerCase()}" } }) {
+            edges {
+              node {
+                id
+                price
+                title
+                description {
+                  json
+                }
+                categories {
+                  title
+                }
+              }
+            }
+          }
+        }
+      `
+    );
+
+    setProducts(gqlResponse);
+  };
+
   return (
     <DataContext.Provider
       value={{
@@ -128,6 +155,7 @@ const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
         getAllCategory,
         meta,
         getMeta,
+        serachProduct,
       }}
     >
       {children}

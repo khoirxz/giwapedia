@@ -11,4 +11,5 @@ export interface ContextContainerProps {
   getAllCategory: () => Promise<void>;
   meta: AllMetaResponse;
   getMeta: () => Promise<void>;
+  serachProduct: (product: string) => Promise<void>;
 }
