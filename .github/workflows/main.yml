@@ -33,5 +33,6 @@ jobs:
             cd /home/giwaroot/giwapedia/
             git pull
             git status
-            npm i
-            pm2 restart 0
+            yarn install
+            yarn build
+            sudo cp -r dist/* /var/www/html/dist
