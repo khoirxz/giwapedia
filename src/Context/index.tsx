@@ -1,8 +1,9 @@
 import React, { createContext, ReactNode, useState } from "react";
 import { gql, GraphQLClient } from "graphql-request";
-import { AllProduct } from "../utils/Types/Product";
 import { ContextContainerProps } from "../utils";
+import { AllProduct } from "../utils/Types/Product";
 import { AllCategory } from "../utils/Types/Category";
+import { AllMetaResponse } from "../utils/Types/Meta";
 
 const client = new GraphQLClient(
   `https://cloud.caisy.io/api/v3/e/${import.meta.env.VITE_PROJECT_ID}/graphql`,
@@ -22,6 +23,15 @@ const DataContext = createContext<ContextContainerProps>({
   setCategories: () => {},
   getAllProducts: async () => {},
   getAllCategory: async () => {},
+  meta: {
+    MetaPage: {
+      title: "",
+      description: "",
+      telephone: "",
+      icon: { src: "" },
+    },
+  },
+  getMeta: async () => {},
 });
 
 const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
@@ -35,6 +45,32 @@ const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
       edges: [],
     },
   });
+  const [meta, setMeta] = useState<AllMetaResponse>({
+    MetaPage: {
+      description: "",
+      icon: { src: "" },
+      telephone: "",
+      title: "",
+    },
+  });
+
+  const getMeta = async () => {
+    const gqlResponse: AllMetaResponse = await client.request(
+      gql`
+        {
+          MetaPage {
+            description
+            id
+            messageText
+            telephone
+            title
+          }
+        }
+      `
+    );
+
+    setMeta(gqlResponse);
+  };
 
   const getAllProducts = async () => {
     const gqlResponse: AllProduct = await client.request(
@@ -90,6 +126,8 @@ const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
         categories,
         setCategories,
         getAllCategory,
+        meta,
+        getMeta,
       }}
     >
       {children}
