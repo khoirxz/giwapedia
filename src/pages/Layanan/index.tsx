@@ -56,7 +56,9 @@ const Layanan: React.FC = () => {
                     Rp. {item.node.price}
                   </p>
                   <button className="font-heading font-bold py-1 bg-blue-700 text-white rounded-xl w-full">
-                    Beli
+                    <a href="https://wa.me/6285156653244?text=Halo%20admin%20apakah%20produk%20tersedia">
+                      Beli
+                    </a>
                   </button>
                 </div>
               </div>
