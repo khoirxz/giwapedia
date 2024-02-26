@@ -34,4 +34,5 @@ jobs:
             git pull
             git status
             yarn install
+            yarn build
             sudo pm2 restart 0
