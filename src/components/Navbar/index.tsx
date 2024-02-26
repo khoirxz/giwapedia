@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import { Transition } from "@headlessui/react";
-import { ChevronDownIcon, Bars3Icon } from "@heroicons/react/24/solid";
+import { ChevronDownIcon, Bars3Icon,''  } from "@heroicons/react/24/solid";
 
 const Navbar: React.FC<{ title: string; showItem: boolean }> = ({
   title,
@@ -51,7 +51,11 @@ const Navbar: React.FC<{ title: string; showItem: boolean }> = ({
           </div>
 
           {!showItem ? (
-            <div className="block md:hidden"></div>
+            <div className="block md:hidden">
+              <button className="border-black border-2 p-2 rounded-lg font-heading font-bold">
+                Pesan
+              </button>
+            </div>
           ) : (
             <div className="block md:hidden">
               <button
