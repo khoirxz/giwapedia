@@ -19,7 +19,9 @@ const router = createBrowserRouter([
 const App: React.FC = () => {
   return (
     <div className="bg-white w-full min-h-screen overflow-x-hidden">
-      <RouterProvider router={router} />
+      <>
+        <RouterProvider router={router} />
+      </>
     </div>
   );
 };

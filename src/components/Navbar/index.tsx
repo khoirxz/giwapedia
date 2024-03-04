@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import { Transition } from "@headlessui/react";
-import { ChevronDownIcon, Bars3Icon,''  } from "@heroicons/react/24/solid";
+import { ChevronDownIcon, Bars3Icon } from "@heroicons/react/24/solid";
 
 const Navbar: React.FC<{ title: string; showItem: boolean }> = ({
   title,
